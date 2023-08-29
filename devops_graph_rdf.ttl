@@ -1,0 +1,76 @@
+
+@prefix : <http://example.org/devops#> .
+
+#:User a owl:Class .
+:Alice a :User ;
+      :name "Alice" .
+
+:Bob a :User ; 
+     :name "Bob" .
+
+#:Repository a owl:Class . 
+:ProjectX a :Repository ;
+       :name "ProjectX" .
+       
+#:Commit a owl:Class .
+:a1b2c3 a :Commit ;
+       :id "a1b2c3" .
+       
+:d4e5f6 a :Commit ;
+       :id "d4e5f6" .
+       
+#:PullRequest a owl:Class .       
+:NewFeaturePR a :PullRequest ;
+            :title "New Feature" .
+            
+#:Pipeline a owl:Class .            
+:p1 a :Pipeline ;
+    :id "p1" .
+
+#:Stage a owl:Class .
+:BuildStage a :Stage ;
+          :name "Build" .
+
+:TestStage a :Stage ;
+         :name "Test" .
+         
+#:Build a owl:Class .         
+:b1 a :Build ;
+    :id "b1" .
+
+#:Test a owl:Class .
+:UnitTests a :Test ;
+          :name "Unit Tests" .
+          
+#:Server a owl:Class .
+:server1 a :Server . 
+
+#:Log a owl:Class .  
+:log1 a :Log .
+
+#:Artifact a owl:Class .
+:artifact1 a :Artifact .
+
+#:Issue a owl:Class .
+:issue1 a :Issue ;
+       :title "App crashes on start" . 
+       
+# Relationships        
+:Alice :authored :a1b2c3 .
+:Bob :authored :d4e5f6 .
+
+:a1b2c3 :committedTo :ProjectX .
+:d4e5f6 :committedTo :ProjectX . 
+
+:Bob :authoredPR :NewFeaturePR .
+
+:ProjectX :triggered :p1 .
+
+:p1 :contains :BuildStage .
+:p1 :contains :TestStage .
+
+:BuildStage :built :b1 .
+
+:b1 :ranTest :UnitTests .
+
+:UnitTests :reported :issue1 .
